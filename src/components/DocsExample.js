@@ -7,7 +7,7 @@ import { cilCode, cilMediaPlay } from '@coreui/icons'
 const DocsExample = (props) => {
   const { children, href } = props
 
-  const _href = `https://coreui.io/react/docs/${href}`
+  //const _href = `https://coreui.io/react/docs/${href}`
 
   return (
     <div className="example">
@@ -19,7 +19,7 @@ const DocsExample = (props) => {
           </CNavLink>
         </CNavItem>
         <CNavItem>
-          <CNavLink href={_href} target="_blank">
+          <CNavLink target="_blank">
             <CIcon icon={cilCode} className="me-2" />
             Code
           </CNavLink>
