@@ -17,10 +17,32 @@ import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
   {
-    component: CNavItem,
-    name: 'Dashboard',
-    to: '/dashboard',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+    component: CNavGroup,
+    name: 'All Resources',
+    to: '/base',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Amazon EKS',
+        to: '/base/spinners',
+      },
+      {
+        component: CNavItem,
+        name: 'Amazon Nodegroup',
+        to: '/base/tooltips',
+      },
+      {
+        component: CNavItem,
+        name: 'Azure AKS',
+        to: '/base/tables',
+      },
+      {
+        component: CNavItem,
+        name: 'Google K8s Service',
+        to: '/base/tooltips',
+      },
+    ],
   },
   {
     component: CNavTitle,
@@ -54,16 +76,28 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'Microsoft Azure',
+        name: 'Azure Resource Group',
         to: '/base/tooltips',
       },
     ],
   },
   {
-    component: CNavItem,
-    name: 'Widgets',
-    to: '/widgets',
-    icon: <CIcon icon={cilCalculator} customClassName="nav-icon" />,
+    component: CNavGroup,
+    name: 'Virtual Machine',
+    to: '/base',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Amazon Web Services',
+        to: '/base/tables',
+      },
+      {
+        component: CNavItem,
+        name: 'Microsoft Azure',
+        to: '/base/tooltips',
+      },
+    ],
   },
   {
     component: CNavItem,
