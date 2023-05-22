@@ -1,40 +1,95 @@
 import React from 'react'
-import { CCard, CCardBody, CCardHeader, CCol, CProgress, CProgressBar, CRow } from '@coreui/react'
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCol,
+  CDropdown,
+  CDropdownDivider,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CFormCheck,
+  CFormInput,
+  CFormLabel,
+  CFormSelect,
+  CFormTextarea,
+  CInputGroup,
+  CInputGroupText,
+  CRow,
+} from '@coreui/react'
 import { DocsExample } from 'src/components'
 
-const Progress = () => {
+const paginations = () => {
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Progress</strong> <small>Basic example</small>
+            <strong>Amazon EKS</strong>
+          </CCardHeader>
+          <CCardBody>
+            <DocsExample href="forms/input-group">
+              <CInputGroup className="mb-3">
+                <CInputGroupText id="basic-addon1">@</CInputGroupText>
+                <CFormInput
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+              </CInputGroup>
+              {/* <CInputGroup className="mb-3">
+                <CFormInput
+                  placeholder="Recipient&#39;s username"
+                  aria-label="Recipient&#39;s username"
+                  aria-describedby="basic-addon2"
+                />
+                <CInputGroupText id="basic-addon2">@example.com</CInputGroupText>
+              </CInputGroup> */}
+              <CFormLabel htmlFor="basic-url">Your vanity URL</CFormLabel>
+              <CInputGroup className="mb-3">
+                <CInputGroupText id="basic-addon3">https://example.com/users/</CInputGroupText>
+                <CFormInput id="basic-url" aria-describedby="basic-addon3" />
+              </CInputGroup>
+              {/* <CInputGroup className="mb-3">
+                <CInputGroupText>$</CInputGroupText>
+                <CFormInput aria-label="Amount (to the nearest dollar)" />
+                <CInputGroupText>.00</CInputGroupText>
+              </CInputGroup> */}
+              <CInputGroup className="mb-3">
+                <CFormInput placeholder="Cluster Name" aria-label="Username" />
+                <CInputGroupText>@</CInputGroupText>
+                <CFormInput placeholder="Cluster Version" aria-label="Server" />
+              </CInputGroup>
+              {/* <CInputGroup>
+                <CInputGroupText>With textarea</CInputGroupText>
+                <CFormTextarea aria-label="With textarea"></CFormTextarea>
+              </CInputGroup> */}
+            </DocsExample>
+          </CCardBody>
+        </CCard>
+      </CCol>
+      {/* <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>K8s EKS</strong>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
-              Progress components are built with two HTML elements, some CSS to set the width, and a
-              few attributes. We don&#39;tuse{' '}
-              <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress">
-                the HTML5 <code>&lt;progress&gt;</code> element
-              </a>
-              , ensuring you can stack progress bars, animate them, and place text labels over them.
+              Input groups wrap by default via <code>flex-wrap: wrap</code> in order to accommodate
+              custom form field validation within an input group. You may disable this with{' '}
+              <code>.flex-nowrap</code>.
             </p>
-            <DocsExample href="components/progress">
-              <CProgress className="mb-3">
-                <CProgressBar value={0} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar value={25} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar value={50} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar value={75} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar value={100} />
-              </CProgress>
+            <DocsExample href="forms/input-group#wrapping">
+              <CInputGroup className="flex-nowrap">
+                <CInputGroupText id="addon-wrapping">@</CInputGroupText>
+                <CFormInput
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="addon-wrapping"
+                />
+              </CInputGroup>
             </DocsExample>
           </CCardBody>
         </CCard>
@@ -42,17 +97,39 @@ const Progress = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Progress</strong> <small>Labels</small>
+            <strong>React Input group</strong> <small>Sizing</small>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
-              Add labels to your progress bars by placing text within the{' '}
-              <code>&lt;CProgressBar&gt;</code>.
+              Add the relative form sizing classes to the <code>&lt;CInputGroup&gt;</code> itself
+              and contents within will automatically resize—no need for repeating the form control
+              size classes on each element.
             </p>
-            <DocsExample href="components/progress#labels">
-              <CProgress className="mb-3">
-                <CProgressBar value={25}>25%</CProgressBar>
-              </CProgress>
+            <p className="text-medium-emphasis small">
+              <strong>Sizing on the individual input group elements isn&#39;tsupported.</strong>
+            </p>
+            <DocsExample href="forms/input-group#sizing">
+              <CInputGroup size="sm" className="mb-3">
+                <CInputGroupText id="inputGroup-sizing-sm">Small</CInputGroupText>
+                <CFormInput
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-sm"
+                />
+              </CInputGroup>
+              <CInputGroup className="mb-3">
+                <CInputGroupText id="inputGroup-sizing-default">Default</CInputGroupText>
+                <CFormInput
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
+                />
+              </CInputGroup>
+              <CInputGroup size="lg">
+                <CInputGroupText id="inputGroup-sizing-lg">Large</CInputGroupText>
+                <CFormInput
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-lg"
+                />
+              </CInputGroup>
             </DocsExample>
           </CCardBody>
         </CCard>
@@ -60,21 +137,33 @@ const Progress = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Progress</strong> <small>Height</small>
+            <strong>React Input group</strong> <small>Checkboxes and radios</small>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
-              We only set a <code>height</code> value on the <code>&lt;CProgress&gt;</code>, so if
-              you change that value the inner <code>&lt;CProgressBar&gt;</code> will automatically
-              resize accordingly.
+              Place any checkbox or radio option within an input group&#39;s addon instead of text.
             </p>
-            <DocsExample href="components/progress#height">
-              <CProgress height={1} className="mb-3">
-                <CProgressBar value={25}></CProgressBar>
-              </CProgress>
-              <CProgress height={20} className="mb-3">
-                <CProgressBar value={25}></CProgressBar>
-              </CProgress>
+            <DocsExample href="forms/input-group#checkboxes-and-radios">
+              <CInputGroup className="mb-3">
+                <CInputGroupText>
+                  <CFormCheck
+                    type="checkbox"
+                    value=""
+                    aria-label="Checkbox for following text input"
+                  />
+                </CInputGroupText>
+                <CFormInput aria-label="Text input with checkbox" />
+              </CInputGroup>
+              <CInputGroup>
+                <CInputGroupText>
+                  <CFormCheck
+                    type="radio"
+                    value=""
+                    aria-label="Radio button for following text input"
+                  />
+                </CInputGroupText>
+                <CFormInput aria-label="Text input with radio button" />
+              </CInputGroup>
             </DocsExample>
           </CCardBody>
         </CCard>
@@ -82,25 +171,20 @@ const Progress = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Progress</strong> <small>Backgrounds</small>
+            <strong>React Input group</strong> <small>Multiple inputs</small>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
-              Use <code>color</code> prop to change the appearance of individual progress bars.
+              While multiple <code>&lt;CFormInput&gt;</code>s are supported visually, validation
+              styles are only available for input groups with a single{' '}
+              <code>&lt;CFormInput&gt;</code>.
             </p>
-            <DocsExample href="components/progress#backgrounds">
-              <CProgress className="mb-3">
-                <CProgressBar color="success" value={25} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar color="info" value={50} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar color="warning" value={75} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar color="danger" value={100} />
-              </CProgress>
+            <DocsExample href="forms/input-group#multiple-inputs">
+              <CInputGroup>
+                <CInputGroupText>First and last name</CInputGroupText>
+                <CFormInput aria-label="First name" />
+                <CFormInput aria-label="Last name" />
+              </CInputGroup>
             </DocsExample>
           </CCardBody>
         </CCard>
@@ -108,18 +192,24 @@ const Progress = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Progress</strong> <small>Multiple bars</small>
+            <strong>React Input group</strong> <small>Multiple addons</small>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
-              Include multiple progress bars in a progress component if you need.
+              Multiple add-ons are supported and can be mixed with checkbox and radio input
+              versions..
             </p>
-            <DocsExample href="components/progress#multiple-bars">
-              <CProgress className="mb-3">
-                <CProgressBar value={15} />
-                <CProgressBar color="success" value={30} />
-                <CProgressBar color="info" value={20} />
-              </CProgress>
+            <DocsExample href="forms/input-group#multiple-addons">
+              <CInputGroup className="mb-3">
+                <CInputGroupText>$</CInputGroupText>
+                <CInputGroupText>0.00</CInputGroupText>
+                <CFormInput aria-label="Dollar amount (with dot and two decimal places)" />
+              </CInputGroup>
+              <CInputGroup>
+                <CFormInput aria-label="Dollar amount (with dot and two decimal places)" />
+                <CInputGroupText>$</CInputGroupText>
+                <CInputGroupText>0.00</CInputGroupText>
+              </CInputGroup>
             </DocsExample>
           </CCardBody>
         </CCard>
@@ -127,26 +217,55 @@ const Progress = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Progress</strong> <small>Striped</small>
+            <strong>React Input group</strong> <small>Button addons</small>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
-              Add <code>variant=&#34;striped&#34;</code> to any <code>&lt;CProgressBar&gt;</code> to
-              apply a stripe via CSS gradient over the progress bar&#39;s background color.
+              Multiple add-ons are supported and can be mixed with checkbox and radio input
+              versions..
             </p>
-            <DocsExample href="components/progress#striped">
-              <CProgress className="mb-3">
-                <CProgressBar color="success" variant="striped" value={25} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar color="info" variant="striped" value={50} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar color="warning" variant="striped" value={75} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar color="danger" variant="striped" value={100} />
-              </CProgress>
+            <DocsExample href="forms/input-group#button-addons">
+              <CInputGroup className="mb-3">
+                <CButton type="button" color="secondary" variant="outline" id="button-addon1">
+                  Button
+                </CButton>
+                <CFormInput
+                  placeholder=""
+                  aria-label="Example text with button addon"
+                  aria-describedby="button-addon1"
+                />
+              </CInputGroup>
+              <CInputGroup className="mb-3">
+                <CFormInput
+                  placeholder="Recipient's username"
+                  aria-label="Recipient's username"
+                  aria-describedby="button-addon2"
+                />
+                <CButton type="button" color="secondary" variant="outline" id="button-addon2">
+                  Button
+                </CButton>
+              </CInputGroup>
+              <CInputGroup className="mb-3">
+                <CButton type="button" color="secondary" variant="outline">
+                  Button
+                </CButton>
+                <CButton type="button" color="secondary" variant="outline">
+                  Button
+                </CButton>
+                <CFormInput placeholder="" aria-label="Example text with two button addons" />
+              </CInputGroup>
+              <CInputGroup>
+                <CFormInput
+                  placeholder="Recipient's username"
+                  aria-label="Recipient's username with two button addons"
+                />
+                <CButton type="button" color="secondary" variant="outline">
+                  Button
+                </CButton>
+                <CButton type="button" color="secondary" variant="outline">
+                  Button
+                </CButton>
+              </CInputGroup>
             </DocsExample>
           </CCardBody>
         </CCard>
@@ -154,33 +273,226 @@ const Progress = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Progress</strong> <small>Animated stripes</small>
+            <strong>React Input group</strong> <small>Buttons with dropdowns</small>
           </CCardHeader>
           <CCardBody>
-            <p className="text-medium-emphasis small">
-              The striped gradient can also be animated. Add <code>animated</code> property to{' '}
-              <code>&lt;CProgressBar&gt;</code> to animate the stripes right to left via CSS3
-              animations.
-            </p>
-            <DocsExample href="components/progress#animated-stripes">
-              <CProgress className="mb-3">
-                <CProgressBar color="success" variant="striped" animated value={25} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar color="info" variant="striped" animated value={50} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar color="warning" variant="striped" animated value={75} />
-              </CProgress>
-              <CProgress className="mb-3">
-                <CProgressBar color="danger" variant="striped" animated value={100} />
-              </CProgress>
+            <DocsExample href="forms/input-group#buttons-with-dropdowns">
+              <CInputGroup className="mb-3">
+                <CDropdown variant="input-group">
+                  <CDropdownToggle color="secondary" variant="outline">
+                    Dropdown
+                  </CDropdownToggle>
+                  <CDropdownMenu>
+                    <CDropdownItem href="#">Action</CDropdownItem>
+                    <CDropdownItem href="#">Another action</CDropdownItem>
+                    <CDropdownItem href="#">Something else here</CDropdownItem>
+                    <CDropdownDivider />
+                    <CDropdownItem href="#">Separated link</CDropdownItem>
+                  </CDropdownMenu>
+                </CDropdown>
+                <CFormInput aria-label="Text input with dropdown button" />
+              </CInputGroup>
+              <CInputGroup className="mb-3">
+                <CFormInput aria-label="Text input with dropdown button" />
+                <CDropdown alignment="end" variant="input-group">
+                  <CDropdownToggle color="secondary" variant="outline">
+                    Dropdown
+                  </CDropdownToggle>
+                  <CDropdownMenu>
+                    <CDropdownItem href="#">Action</CDropdownItem>
+                    <CDropdownItem href="#">Another action</CDropdownItem>
+                    <CDropdownItem href="#">Something else here</CDropdownItem>
+                    <CDropdownDivider />
+                    <CDropdownItem href="#">Separated link</CDropdownItem>
+                  </CDropdownMenu>
+                </CDropdown>
+              </CInputGroup>
+              <CInputGroup>
+                <CDropdown variant="input-group">
+                  <CDropdownToggle color="secondary" variant="outline">
+                    Dropdown
+                  </CDropdownToggle>
+                  <CDropdownMenu>
+                    <CDropdownItem href="#">Action</CDropdownItem>
+                    <CDropdownItem href="#">Another action</CDropdownItem>
+                    <CDropdownItem href="#">Something else here</CDropdownItem>
+                    <CDropdownDivider />
+                    <CDropdownItem href="#">Separated link</CDropdownItem>
+                  </CDropdownMenu>
+                </CDropdown>
+                <CFormInput aria-label="Text input with 2 dropdown buttons" />
+                <CDropdown alignment="end" variant="input-group">
+                  <CDropdownToggle color="secondary" variant="outline">
+                    Dropdown
+                  </CDropdownToggle>
+                  <CDropdownMenu>
+                    <CDropdownItem href="#">Action</CDropdownItem>
+                    <CDropdownItem href="#">Another action</CDropdownItem>
+                    <CDropdownItem href="#">Something else here</CDropdownItem>
+                    <CDropdownDivider />
+                    <CDropdownItem href="#">Separated link</CDropdownItem>
+                  </CDropdownMenu>
+                </CDropdown>
+              </CInputGroup>
             </DocsExample>
           </CCardBody>
         </CCard>
       </CCol>
+      <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>React Input group</strong> <small>Segmented buttons</small>
+          </CCardHeader>
+          <CCardBody>
+            <DocsExample href="forms/input-group#segmented-buttons">
+              <CInputGroup className="mb-3">
+                <CDropdown variant="input-group">
+                  <CButton type="button" color="secondary" variant="outline">
+                    Action
+                  </CButton>
+                  <CDropdownToggle color="secondary" variant="outline" split />
+                  <CDropdownMenu>
+                    <CDropdownItem href="#">Action</CDropdownItem>
+                    <CDropdownItem href="#">Another action</CDropdownItem>
+                    <CDropdownItem href="#">Something else here</CDropdownItem>
+                    <CDropdownDivider />
+                    <CDropdownItem href="#">Separated link</CDropdownItem>
+                  </CDropdownMenu>
+                </CDropdown>
+                <CFormInput aria-label="Text input with segmented dropdown button" />
+              </CInputGroup>
+              <CInputGroup>
+                <CFormInput aria-label="Text input with segmented dropdown button" />
+                <CDropdown alignment="end" variant="input-group">
+                  <CButton type="button" color="secondary" variant="outline">
+                    Action
+                  </CButton>
+                  <CDropdownToggle color="secondary" variant="outline" split />
+                  <CDropdownMenu>
+                    <CDropdownItem href="#">Action</CDropdownItem>
+                    <CDropdownItem href="#">Another action</CDropdownItem>
+                    <CDropdownItem href="#">Something else here</CDropdownItem>
+                    <CDropdownDivider />
+                    <CDropdownItem href="#">Separated link</CDropdownItem>
+                  </CDropdownMenu>
+                </CDropdown>
+              </CInputGroup>
+            </DocsExample>
+          </CCardBody>
+        </CCard>
+      </CCol>
+      <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>React Input group</strong> <small>Custom select</small>
+          </CCardHeader>
+          <CCardBody>
+            <DocsExample href="forms/input-group#custom-select">
+              <CInputGroup className="mb-3">
+                <CInputGroupText component="label" htmlFor="inputGroupSelect01">
+                  Options
+                </CInputGroupText>
+                <CFormSelect id="inputGroupSelect01">
+                  <option>Choose...</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </CFormSelect>
+              </CInputGroup>
+              <CInputGroup className="mb-3">
+                <CFormSelect id="inputGroupSelect02">
+                  <option>Choose...</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </CFormSelect>
+                <CInputGroupText component="label" htmlFor="inputGroupSelect02">
+                  Options
+                </CInputGroupText>
+              </CInputGroup>
+              <CInputGroup className="mb-3">
+                <CButton type="button" color="secondary" variant="outline">
+                  Button
+                </CButton>
+                <CFormSelect id="inputGroupSelect03" aria-label="Example select with button addon">
+                  <option>Choose...</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </CFormSelect>
+              </CInputGroup>
+              <CInputGroup>
+                <CFormSelect id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <option>Choose...</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </CFormSelect>
+                <CButton type="button" color="secondary" variant="outline">
+                  Button
+                </CButton>
+              </CInputGroup>
+            </DocsExample>
+          </CCardBody>
+        </CCard>
+      </CCol>
+      <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>React Input group</strong> <small>Custom file input</small>
+          </CCardHeader>
+          <CCardBody>
+            <DocsExample href="forms/input-group#custom-file-input">
+              <CInputGroup className="mb-3">
+                <CInputGroupText component="label" htmlFor="inputGroupFile01">
+                  Upload
+                </CInputGroupText>
+                <CFormInput type="file" id="inputGroupFile01" />
+              </CInputGroup>
+              <CInputGroup className="mb-3">
+                <CFormInput type="file" id="inputGroupFile02" />
+                <CInputGroupText component="label" htmlFor="inputGroupFile02">
+                  Upload
+                </CInputGroupText>
+              </CInputGroup>
+              <CInputGroup className="mb-3">
+                <CButton
+                  type="button"
+                  color="secondary"
+                  variant="outline"
+                  id="inputGroupFileAddon03"
+                >
+                  Button
+                </CButton>
+                <CFormInput
+                  type="file"
+                  id="inputGroupFile03"
+                  aria-describedby="inputGroupFileAddon03"
+                  aria-label="Upload"
+                />
+              </CInputGroup>
+              <CInputGroup>
+                <CFormInput
+                  type="file"
+                  id="inputGroupFile04"
+                  aria-describedby="inputGroupFileAddon04"
+                  aria-label="Upload"
+                />
+                <CButton
+                  type="button"
+                  color="secondary"
+                  variant="outline"
+                  id="inputGroupFileAddon04"
+                >
+                  Button
+                </CButton>
+              </CInputGroup>
+            </DocsExample>
+          </CCardBody>
+        </CCard>
+      </CCol> */}
     </CRow>
   )
 }
 
-export default Progress
+export default paginations

@@ -25,21 +25,26 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Amazon EKS',
-        to: '/base/spinners',
+        to: '/base/placeholders',
       },
       {
         component: CNavItem,
         name: 'Amazon Nodegroup',
-        to: '/base/tooltips',
+        to: '/base/paginations',
       },
       {
         component: CNavItem,
         name: 'Azure AKS',
-        to: '/base/tables',
+        to: '/base/popovers',
       },
       {
         component: CNavItem,
         name: 'Google K8s Service',
+        to: '/base/',
+      },
+      {
+        component: CNavItem,
+        name: 'All',
         to: '/base/tooltips',
       },
     ],
@@ -90,7 +95,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Amazon Web Services',
-        to: '/base/tables',
+        to: '/base/progress',
       },
       {
         component: CNavItem,
