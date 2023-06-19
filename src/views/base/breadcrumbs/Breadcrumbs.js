@@ -9,7 +9,7 @@ import {
   CRow,
   CLink,
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
+import { DocsExample } from 'src/components';
 
 const Breadcrumbs = () => {
   return (
@@ -25,7 +25,7 @@ const Breadcrumbs = () => {
               through and shows the current location in a website or an application. You don’t have
               to add separators, because they automatically added in CSS through{' '}
               <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::before">
-                {' '}
+                {" "}
                 <code>::before</code>
               </a>{' '}
               and{' '}
@@ -35,7 +35,7 @@ const Breadcrumbs = () => {
               </a>
               .
             </p>
-            <DocsExample href="components/breadcrumb">
+            {/* <DocsExample href="components/breadcrumb">
               <CBreadcrumb>
                 <CBreadcrumbItem>
                   <CLink href="#">Home</CLink>
@@ -63,12 +63,12 @@ const Breadcrumbs = () => {
                 </CBreadcrumbItem>
                 <CBreadcrumbItem active>Bootstrap</CBreadcrumbItem>
               </CBreadcrumb>
-            </DocsExample>
+            </DocsExample> */}
           </CCardBody>
         </CCard>
       </CCol>
     </CRow>
-  )
-}
+  );
+};
 
 export default Breadcrumbs

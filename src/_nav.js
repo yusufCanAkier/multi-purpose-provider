@@ -29,23 +29,18 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'Amazon Nodegroup',
+        name: 'AWS Database',
         to: '/base/paginations',
       },
       {
         component: CNavItem,
-        name: 'Azure AKS',
+        name: 'Create AWS Nodegroup',
         to: '/base/popovers',
       },
       {
         component: CNavItem,
-        name: 'Google K8s Service',
+        name: 'Azure Database',
         to: '/base/',
-      },
-      {
-        component: CNavItem,
-        name: 'All',
-        to: '/base/tooltips',
       },
     ],
   },
@@ -62,29 +57,6 @@ const _nav = [
   {
     component: CNavTitle,
     name: 'Components',
-  },
-  {
-    component: CNavGroup,
-    name: 'Clusters',
-    to: '/base',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Google Cloud',
-        to: '/base/spinners',
-      },
-      {
-        component: CNavItem,
-        name: 'Amazon Web Services',
-        to: '/base/tables',
-      },
-      {
-        component: CNavItem,
-        name: 'Azure Resource Group',
-        to: '/base/tooltips',
-      },
-    ],
   },
   {
     component: CNavGroup,

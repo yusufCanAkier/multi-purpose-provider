@@ -11,6 +11,7 @@ const AppContent = () => {
       <Suspense fallback={<CSpinner color="primary" />}>
         <Routes>
           {routes.map((route, idx) => {
+            console.log(route)
             return (
               route.element && (
                 <Route
@@ -23,7 +24,7 @@ const AppContent = () => {
               )
             )
           })}
-          <Route path="/" element={<Navigate to="dashboard" replace />} />
+          <Route path="/" element={<Navigate to="login" replace />} />
         </Routes>
       </Suspense>
     </CContainer>

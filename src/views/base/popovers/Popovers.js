@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios';
 import {
   CButton,
   CCard,
@@ -22,76 +23,66 @@ import {
 import { DocsExample } from 'src/components'
 
 const popovers = () => {
+  const data = {};
+
+  axios.post('https://example.com/api/endpoint', data)
+  .then(response => {
+    console.log('Response:', response.data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Azure AKS</strong>
+            <strong>Create EKS</strong>
           </CCardHeader>
-          <CCardBody>
-            <DocsExample href="forms/input-group#custom-select">
-              <CInputGroup className="mb-3">
-                <CFormSelect id="inputGroupSelect02">
-                  <option>Upload your credential as a .env</option>
-                  <option value="1">2.1.2</option>
-                  <option value="2">2.1.3</option>
-                  <option value="3">2.1.4</option>
-                </CFormSelect>
-                <CInputGroupText component="label" htmlFor="inputGroupSelect02">
-                  Versions
-                </CInputGroupText>
-              </CInputGroup>
-              <CInputGroup className="mb-3">
-                <CButton type="button" color="secondary" variant="outline">
-                  Generate
-                </CButton>
-                <CFormSelect id="inputGroupSelect03" aria-label="Example select with button addon">
-                  <option>Instance Size</option>
-                  <option value="1">m7g.medium</option>
-                  <option value="2">m7g.large</option>
-                  <option value="3">m7g.xlarge</option>
-                </CFormSelect>
-              </CInputGroup>
-            </DocsExample>
-          </CCardBody>
           <CCardBody>
             <DocsExample href="forms/input-group">
               <CInputGroup className="mb-3">
-                <CInputGroupText id="basic-addon1">@</CInputGroupText>
                 <CFormInput
-                  placeholder="Username"
+                  placeholder="Cluster Name"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                 />
               </CInputGroup>
               <CInputGroup className="mb-3">
                 <CFormInput
-                  placeholder="Recipient&#39;s username"
-                  aria-label="Recipient&#39;s username"
-                  aria-describedby="basic-addon2"
+                  placeholder="Key Name"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
                 />
-                <CInputGroupText id="basic-addon2">@example.com</CInputGroupText>
               </CInputGroup>
-              {/* <CFormLabel htmlFor="basic-url">Your vanity URL</CFormLabel> */}
-              {/* <CInputGroup className="mb-3">
-                <CInputGroupText id="basic-addon3">https://example.com/users/</CInputGroupText>
-                <CFormInput id="basic-url" aria-describedby="basic-addon3" />
-              </CInputGroup> */}
-              {/* <CInputGroup className="mb-3">
-                <CInputGroupText>$</CInputGroupText>
-                <CFormInput aria-label="Amount (to the nearest dollar)" />
-                <CInputGroupText>.00</CInputGroupText>
-              </CInputGroup> */}
               <CInputGroup className="mb-3">
-                <CFormInput placeholder="Cluster Name" aria-label="Username" />
-                <CInputGroupText>@</CInputGroupText>
-                <CFormInput placeholder="Cluster Version" aria-label="Server" />
+                <CFormInput
+                  placeholder="Node Group Name"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
               </CInputGroup>
-              {/* <CInputGroup>
-                <CInputGroupText>With textarea</CInputGroupText>
-                <CFormTextarea aria-label="With textarea"></CFormTextarea>
-              </CInputGroup> */}
+              <CInputGroup className="mb-3">
+                <CFormInput
+                  placeholder="Desired State"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+              </CInputGroup>
+              <CInputGroup className="mb-3">
+                <CFormInput
+                  placeholder="Max Size"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+                <CFormInput
+                  placeholder="Min Size"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+              </CInputGroup>
+              <CButton href="#">Create</CButton>
             </DocsExample>
           </CCardBody>
         </CCard>

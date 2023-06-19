@@ -1,5 +1,6 @@
 import React from 'react'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
+import Login from 'src/views/login/Login'
 
 const DefaultLayout = () => {
   return (
