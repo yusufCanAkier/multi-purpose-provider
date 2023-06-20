@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
@@ -12,42 +12,67 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import axios from 'axios';
+import { UserContext } from '../../../UserContext'
+
+
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [visible, setVisible] = useState(false)
   const navigate = useNavigate();
+  const { setUserID } = useContext(UserContext);
+  let _userID ;
   
   const handleSubmit = async (e) => {
+
     e.preventDefault();
+
     const url = 'http://localhost:7070/auth/signIn';
     const data = {
       username: username,
       password: password,
     };
-    fetch(url, {
+
+
+    await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     })
-      .then(response => {
-        if(response.status === 200){
-          navigate('/dashboard')
-        }
-      })
-      .then(data => {
-        console.log(data); // Yanıt verisini konsola yazdır
-      })
-      .catch(error => {
-        console.error('Hata:', error);
-      });
+    .then(response => {
+      if(response.ok) {  // HTTP status kodu 200-299 arasında ise
+        return response.json(); // json veriyi döndür ve sonraki then bloğuna geç.
+      } else {
+        setVisible(!visible)
+      }
+    })
+    .then(data => {
+      _userID = data.user.ID;
+         // Burada "data" nesnesi ile istediğiniz işlemi yapabilirsiniz.
+    })
+    .then(()=>{
+      setUserID(_userID);
+    })
+    .catch(error => {
+      console.error('Hata:', error);
+    });
+    
+
+
+
+
   
   };
   
@@ -87,6 +112,18 @@ const Login = () => {
                         <CButton type="submit" color="primary">
                           Login
                         </CButton>
+                        <CModal visible={visible} onClose={() => setVisible(false)}>
+                          <CModalHeader onClose={() => setVisible(false)}>
+                            <CModalTitle>Attention</CModalTitle>
+                          </CModalHeader>
+                          <CModalBody>Wrong username or password !</CModalBody>
+                          <CModalFooter>
+                            <CButton color="secondary" onClick={() => setVisible(false)}>
+                              Close
+                            </CButton>
+                          </CModalFooter>
+                        </CModal>
+
                       </CCol>
                       <CCol xs={6} className="text-right">
                         <CButton color="link" className="px-0">

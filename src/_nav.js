@@ -24,23 +24,18 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Amazon EKS',
+        name: 'Get EKS',
         to: '/base/placeholders',
       },
       {
         component: CNavItem,
-        name: 'AWS Database',
+        name: 'AWS VM Get',
         to: '/base/paginations',
       },
       {
         component: CNavItem,
         name: 'Create AWS Nodegroup',
         to: '/base/popovers',
-      },
-      {
-        component: CNavItem,
-        name: 'Azure Database',
-        to: '/base/',
       },
     ],
   },
@@ -95,11 +90,7 @@ const _nav = [
     to: '/base',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
-      {
-        component: CNavItem,
-        name: 'Amazon EKS',
-        to: '/base/placeholders',
-      },
+    
       {
         component: CNavItem,
         name: 'AWS Database',
@@ -117,6 +108,19 @@ const _nav = [
         component: CNavItem,
         name: 'Azure Database',
         to: '/base/',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'EKS Manager',
+    to: '/base',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Amazon EKS',
+        to: '/base/placeholders',
       },
     ],
   },

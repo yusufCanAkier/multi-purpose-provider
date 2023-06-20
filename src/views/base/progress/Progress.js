@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import {
   CButton,
   CCard,
@@ -20,8 +20,43 @@ import {
   CRow,
 } from '@coreui/react'
 import { DocsExample } from 'src/components'
+import axios from 'axios';
+import { useEffect } from 'react';
+import UserContext from 'src/UserContext';
 
 const paginations = () => {
+const [inputValue, setInputValue] = useState('');
+const { userID } = useContext(UserContext)
+const handleCreate = () => {
+  // Create işlevi
+  axios.post('http://localhost:7070/vm/createaws/4', { data: inputValue })
+    .then(response => {
+      // İstek başarılı olduğunda yapılacaklar
+      console.log(response.config);
+    })
+    .catch(error => {
+      // İstek hata verdiğinde yapılacaklar
+      console.error(error);
+    });
+};
+
+const handleDelete = () => {
+  // Delete işlevi
+  axios.delete('API_URL', { data: inputValue })
+    .then(response => {
+      // İstek başarılı olduğunda yapılacaklar
+      console.log(response);
+    })
+    .catch(error => {
+      // İstek hata verdiğinde yapılacaklar
+      console.error(error);
+    });
+};
+
+useEffect(() => {
+  console.log(userID)
+}, []); 
+
   return (
     <CRow>
       <CCol xs={12}>
@@ -36,9 +71,11 @@ const paginations = () => {
                   placeholder="Image ID"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
                 />
               </CInputGroup>
-              <CButton href="#">Create</CButton>
+              <CButton onClick={handleCreate}>Create</CButton>
             </DocsExample>
           </CCardBody>
         </CCard>
@@ -55,7 +92,7 @@ const paginations = () => {
                   aria-describedby="basic-addon1"
                 />
               </CInputGroup>
-              <CButton href="#">Create</CButton>
+              <CButton>Delete</CButton>
             </DocsExample>
           </CCardBody>
         </CCard>

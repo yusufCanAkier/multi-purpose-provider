@@ -38,7 +38,7 @@ const popovers = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Create EKS</strong>
+            <strong>Nodegroup</strong>
           </CCardHeader>
           <CCardBody>
             <DocsExample href="forms/input-group">
