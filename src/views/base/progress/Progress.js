@@ -27,18 +27,21 @@ import UserContext from 'src/UserContext';
 const paginations = () => {
 const [inputValue, setInputValue] = useState('');
 const { userID } = useContext(UserContext)
-const handleCreate = () => {
-  // Create işlevi
-  axios.post('http://localhost:7070/vm/createaws/4', { data: inputValue })
+
+
+
+const handleCreate = async () => {
+  await axios.post('http://localhost:7070/vm/createaws/5', { data: inputValue })
     .then(response => {
-      // İstek başarılı olduğunda yapılacaklar
-      console.log(response.config);
+      console.log(response.data); // Yanıt verilerini konsola logla.
+      return response.data; // İkinci then bloğuna response.data'yı döndür.
     })
     .catch(error => {
-      // İstek hata verdiğinde yapılacaklar
       console.error(error);
     });
 };
+
+
 
 const handleDelete = () => {
   // Delete işlevi

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import {
   CButton,
@@ -9,8 +9,14 @@ import {
   CFormInput,
   CInputGroup,
   CRow,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter
 } from '@coreui/react';
 import { DocsExample } from 'src/components';
+import UserContext from 'src/UserContext';
 
 const CreateAzureVM = () => {
   const [resourceGroupName, setResourceGroupName] = useState('');
@@ -19,29 +25,44 @@ const CreateAzureVM = () => {
   const [adminUsername, setAdminUsername] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const [location, setLocation] = useState('');
+  const { userID } = useContext(UserContext);
+  const [visible, setVisible] = useState(false)
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     const data = {
-      resourceGroupName,
-      virtualMachineName,
-      virtualMachineSize,
-      adminUsername,
-      adminPassword,
-      location,
+      resourceGroupName: resourceGroupName,
+      vmName: virtualMachineName,
+      vmSize: virtualMachineSize,
+      adminUsername: adminUsername,
+      adminPassword: adminUsername,
+      location: location,
     };
+    const url = 'http://localhost:7070/vm/createazure/' + userID;
 
-    // Create işlevi
-    axios.post('http://localhost:7070/vm/createazure/4', data)
-      .then(response => {
-        console.log(data)
-        // İstek başarılı olduğunda yapılacaklar
-        console.log(response);
-      })
-      .catch(error => {
-        eastus
-        // İstek hata verdiğinde yapılacaklar
-        console.error(error);
-      });
+
+    await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => {
+      if(response.ok) {  // HTTP status kodu 200-299 arasında ise
+        setVisible(!visible)
+        return response.json(); // json veriyi döndür ve sonraki then bloğuna geç.
+      } else {
+        console.log("olmadi")
+      }
+    })
+    .then(data => {
+      console.log(data)
+         // Burada "data" nesnesi ile istediğiniz işlemi yapabilirsiniz.
+    })
+    .catch(error => {
+      console.error('Hata:', error);
+    });
+
   };
 
   return (
@@ -103,6 +124,17 @@ const CreateAzureVM = () => {
                 />
               </CInputGroup>
               <CButton onClick={handleCreate}>Create</CButton>
+              <CModal visible={visible} onClose={() => setVisible(false)}>
+                          <CModalHeader onClose={() => setVisible(false)}>
+                            <CModalTitle>Successfully</CModalTitle>
+                          </CModalHeader>
+                          <CModalBody>VM Successfully Created !</CModalBody>
+                          <CModalFooter>
+                            <CButton color="secondary" onClick={() => setVisible(false)}>
+                              Close
+                            </CButton>
+                          </CModalFooter>
+              </CModal>
             </DocsExample>
           </CCardBody>
         </CCard>

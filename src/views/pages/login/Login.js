@@ -53,6 +53,7 @@ const Login = () => {
     })
     .then(response => {
       if(response.ok) {  // HTTP status kodu 200-299 arasında ise
+        navigate('/dashboard')
         return response.json(); // json veriyi döndür ve sonraki then bloğuna geç.
       } else {
         setVisible(!visible)
