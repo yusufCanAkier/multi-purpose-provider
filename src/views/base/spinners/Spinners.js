@@ -93,8 +93,8 @@ const Spinners = () => {
           <YAxis tick={{ fontSize: 14, fill: '#605F5E' }} />
           <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
-          <Line type="monotone" dataKey="cost" stroke="#8884d8" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} />
-          <Area type='monotone' dataKey='cost' stroke='#8884d8' fillOpacity={0.3} fill='#8884d8' />
+          <Line type="monotone" dataKey="cost" stroke="#8884d8" strokeWidth={3} dot={{ r: 6 }} activeDot={{ r: 8 }} fill="#8884d8" />
+          <Area type='monotone' dataKey='cost' stroke='#8884d8' fillOpacity={0.9} fill='#8884d8' />
         </LineChart>
       </ResponsiveContainer>
       <CTable

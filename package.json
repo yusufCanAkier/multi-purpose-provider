@@ -45,7 +45,8 @@
     "react-router-dom": "^6.8.2",
     "recharts": "^2.7.1",
     "redux": "4.2.1",
-    "simplebar-react": "^2.4.3"
+    "simplebar-react": "^2.4.3",
+    "victory": "^36.6.11"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

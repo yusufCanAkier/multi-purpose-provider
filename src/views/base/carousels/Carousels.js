@@ -20,7 +20,6 @@ import {
   CTableBody,
   CTableDataCell
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
 import UserContext from 'src/UserContext'
 import '../accordion/accordion-style.css'
 
