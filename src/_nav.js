@@ -45,6 +45,19 @@ const _nav = [
     ],
   },
   {
+    component: CNavGroup,
+    name: 'Billings',
+    to: '/base',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Usages',
+        to: '/base/placeholders',
+      },
+    ],
+  },
+  {
     component: CNavTitle,
     name: 'MultiPurpose Clusters',
   },
@@ -77,11 +90,41 @@ const _nav = [
     ],
   },
   {
+    component: CNavGroup,
+    name: 'AWS',
+    to: '/base',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Amazon EKS',
+        to: '/base/placeholders',
+      },
+      {
+        component: CNavItem,
+        name: 'AWS Database',
+        to: '/base/paginations',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Azure',
+    to: '/base',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Azure Database',
+        to: '/base/',
+      },
+    ],
+  },
+  {
     component: CNavItem,
     name: 'Docs',
-    href: 'https://kubernetes.io/docs/home/',
+    href: 'https://github.com/emirhandogandemir/cloud-infra-generator-api',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
 ]
-
 export default _nav

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
@@ -15,10 +15,42 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import axios from 'axios';
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
-
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const url = 'http://localhost:7070/auth/signIn';
+    const data = {
+      username: username,
+      password: password,
+    };
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if(response.status === 200){
+          navigate('/dashboard')
+        }
+      })
+      .then(data => {
+        console.log(data); // Yanıt verisini konsola yazdır
+      })
+      .catch(error => {
+        console.error('Hata:', error);
+      });
+  
+  };
+  
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -27,28 +59,32 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={handleSubmit}>
                     <h1>Login</h1>
                     <p className="text-medium-emphasis">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput placeholder="Username" id='username' value={username} autoComplete="username" onChange={(e) => setUsername(e.target.value)}/>
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
-                      <CFormInput
+                      <CFormInput 
+                        value={password}
+                        id='password'
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </CInputGroup>
                     <CRow>
+                        {error && <p className="text-danger">{error}</p>}
                       <CCol xs={6}>
-                        <CButton onClick={() => {navigate('/dashboard')}} color="primary" className="px-4">
+                        <CButton type="submit" color="primary">
                           Login
                         </CButton>
                       </CCol>

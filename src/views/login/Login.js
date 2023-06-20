@@ -11,8 +11,8 @@ const Login = () => {
     // Giriş işlemlerini burada gerçekleştirin
     console.log('Email:', email);
     console.log('Password:', password);
-
-    navigate('/#/dashboard');
+    
+    //navigate('/#/dashboard');
 
   };
 
