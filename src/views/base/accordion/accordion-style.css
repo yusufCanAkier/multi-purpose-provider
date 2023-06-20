@@ -1,0 +1,19 @@
+.styled-table {
+    border: 1px solid #ddd;
+    border-radius: 5px; /* Kenarlıklara hafif bir yuvarlaklık ekler */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Tablonun etrafına hafif bir gölge ekler */
+    overflow: hidden; /* Yuvarlak köşelerin dışında kalan içerikleri gizler */
+  }
+  
+  .styled-table .table {
+    margin-bottom: 0; /* Tablo altındaki boşluk miktarını sıfırlar */
+  }
+  
+  .styled-table th {
+    background-color: #f5f5f5; /* Başlık hücrelerine hafif bir arka plan rengi ekler */
+  }
+  
+  .styled-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Çizgili görünüm için çift numaralı satırlara hafif bir arka plan rengi ekler */
+  }
+  

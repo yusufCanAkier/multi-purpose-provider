@@ -24,18 +24,33 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Get EKS',
-        to: '/base/placeholders',
+        name: 'AWS Storage List',
+        to: '/base/navs',
       },
       {
         component: CNavItem,
-        name: 'AWS VM Get',
-        to: '/base/paginations',
+        name: 'AWS Database List',
+        to: '/base/collapses',
       },
       {
         component: CNavItem,
-        name: 'Create AWS Nodegroup',
-        to: '/base/popovers',
+        name: 'AWS Virtual Machines',
+        to: '/base/carousels',
+      },
+      {
+        component: CNavItem,
+        name: 'Azure Database List',
+        to: '/base/accordion',
+      },
+      {
+        component: CNavItem,
+        name: 'Azure Virtual Machines',
+        to: '/base/breadcrumbs',
+      },
+      {
+        component: CNavItem,
+        name: 'EKS Clusters',
+        to: '/base/list-groups',
       },
     ],
   },
@@ -48,7 +63,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Usages',
-        to: '/base/placeholders',
+        to: '/base/spinners',
       },
     ],
   },
@@ -86,24 +101,15 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'AWS',
+    name: 'Databases',
     to: '/base',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
-    
       {
         component: CNavItem,
         name: 'AWS Database',
         to: '/base/paginations',
       },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Azure',
-    to: '/base',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
       {
         component: CNavItem,
         name: 'Azure Database',
@@ -113,13 +119,31 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'EKS Manager',
+    name: 'Storage',
     to: '/base',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Amazon EKS',
+        name: 'AWS Storage',
+        to: '/base/paginations',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'K8s Manager',
+    to: '/base',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Elastic K8s Service',
+        to: '/base/placeholders',
+      },
+      {
+        component: CNavItem,
+        name: 'Azure K8s Service',
         to: '/base/placeholders',
       },
     ],

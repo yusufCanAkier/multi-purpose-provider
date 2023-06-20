@@ -1,125 +1,80 @@
-import React, { useState } from 'react'
-import { CButton, CCard, CCardBody, CCardHeader, CCol, CCollapse, CRow } from '@coreui/react'
+import React, { useContext, useState, useEffect } from 'react'
+import {
+  CRow,
+  CCol,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CNav,
+  CNavItem,
+  CNavLink,
+  CTab,
+  CTable,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+  CTableBody,
+  CTableDataCell
+} from '@coreui/react'
 import { DocsExample } from 'src/components'
+import UserContext from 'src/UserContext'
+import '../accordion/accordion-style.css'
+
+
+const fields = [
+  { key: 'location', label: 'Location', _style: { width: '20%'} },
+  { key: 'administratorLogin', label: 'Administrator Login', _style: { width: '20%'} },
+  { key: 'skuName', label: 'SKU Name', _style: { width: '20%'} },
+  { key: 'backup', label: 'Backup Retention Days', _style: { width: '20%'}}
+];
 
 const Collapses = () => {
-  const [visible, setVisible] = useState(false)
-  const [visibleHorizontal, setVisibleHorizontal] = useState(false)
-  const [visibleA, setVisibleA] = useState(false)
-  const [visibleB, setVisibleB] = useState(false)
+
+  const { userID } = useContext(UserContext)
+  const [data, setData] = useState([]);
+  let apiUrl = 'http://localhost:7070/database/getdatabaseazure/' + userID
+
+  useEffect(() => {
+    fetch(apiUrl)
+    .then(response => response.json())
+      .then(fetchedData => {
+        // Gelen veriyi düz bir yapıya dönüştür
+        const flattenedData = fetchedData.map(item => ({
+          location: item.location,
+          administratorLogin: item.properties.administratorLogin,
+          skuName: item.sku.name,
+          backup: item.properties.backup.backupRetentionDays
+        }));
+        setData(flattenedData);
+      })
+      .catch(error => console.error('Error:', error));
+
+  }, []);
 
   return (
-    <CRow>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Collapse</strong>
-          </CCardHeader>
-          <CCardBody>
-            <p className="text-medium-emphasis small">You can use a link or a button component.</p>
-            <DocsExample href="components/collapse">
-              <CButton
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  setVisible(!visible)
-                }}
-              >
-                Link
-              </CButton>
-              <CButton onClick={() => setVisible(!visible)}>Button</CButton>
-              <CCollapse visible={visible}>
-                <CCard className="mt-3">
-                  <CCardBody>
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                    richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes
-                    anderson cred nesciunt sapiente ea proident.
-                  </CCardBody>
-                </CCard>
-              </CCollapse>
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Collapse</strong> <small> Horizontal</small>
-          </CCardHeader>
-          <CCardBody>
-            <p className="text-medium-emphasis small">You can use a link or a button component.</p>
-            <DocsExample href="components/collapse#horizontal">
-              <CButton
-                className="mb-3"
-                onClick={() => setVisibleHorizontal(!visibleHorizontal)}
-                aria-expanded={visibleHorizontal}
-                aria-controls="collapseWidthExample"
-              >
-                Button
-              </CButton>
-              <div style={{ minHeight: '120px' }}>
-                <CCollapse id="collapseWidthExample" horizontal visible={visibleHorizontal}>
-                  <CCard style={{ width: '300px' }}>
-                    <CCardBody>
-                      This is some placeholder content for a horizontal collapse. It&#39;s hidden by
-                      default and shown when triggered.
-                    </CCardBody>
-                  </CCard>
-                </CCollapse>
-              </div>
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Collapse</strong> <small> multi target</small>
-          </CCardHeader>
-          <CCardBody>
-            <p className="text-medium-emphasis small">
-              A <code>&lt;CButton&gt;</code> can show and hide multiple elements.
-            </p>
-            <DocsExample href="components/collapse#multiple-targets">
-              <CButton onClick={() => setVisibleA(!visibleA)}>Toggle first element</CButton>
-              <CButton onClick={() => setVisibleB(!visibleB)}>Toggle second element</CButton>
-              <CButton
-                onClick={() => {
-                  setVisibleA(!visibleA)
-                  setVisibleB(!visibleB)
-                }}
-              >
-                Toggle both elements
-              </CButton>
-              <CRow>
-                <CCol xs={6}>
-                  <CCollapse visible={visibleA}>
-                    <CCard className="mt-3">
-                      <CCardBody>
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                        richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident.
-                      </CCardBody>
-                    </CCard>
-                  </CCollapse>
-                </CCol>
-                <CCol xs={6}>
-                  <CCollapse visible={visibleB}>
-                    <CCard className="mt-3">
-                      <CCardBody>
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                        richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident.
-                      </CCardBody>
-                    </CCard>
-                  </CCollapse>
-                </CCol>
-              </CRow>
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-      </CCol>
-    </CRow>
+    <CTable
+      items={data}
+      fields={fields}
+      striped
+      itemsPerPage={5}
+      pagination
+      hover
+      sorter
+      className='styled-table'
+    >
+      <CTableHead>
+        <CTableRow>
+          <CTableHeaderCell scope="col">Location</CTableHeaderCell>
+          <CTableHeaderCell scope="col">Administrator</CTableHeaderCell>
+          <CTableHeaderCell scope="col">SKU Name</CTableHeaderCell>
+          <CTableHeaderCell scope="col">Backup Retention Days</CTableHeaderCell>
+        </CTableRow>
+      </CTableHead>
+    </CTable>
   )
 }
 

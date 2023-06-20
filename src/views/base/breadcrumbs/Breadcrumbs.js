@@ -1,74 +1,81 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import {
-  CBreadcrumb,
-  CBreadcrumbItem,
+  CRow,
+  CCol,
   CCard,
   CCardBody,
   CCardHeader,
-  CCol,
-  CRow,
-  CLink,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CNav,
+  CNavItem,
+  CNavLink,
+  CTab,
+  CTable,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+  CTableBody,
+  CTableDataCell
 } from '@coreui/react'
-import { DocsExample } from 'src/components';
+import { DocsExample } from 'src/components'
+import UserContext from 'src/UserContext'
+import '../accordion/accordion-style.css'
+
+
+const fields = [
+  { key: 'location', label: 'Location', _style: { width: '20%'} },
+  { key: 'administratorLogin', label: 'Administrator Login', _style: { width: '20%'} },
+  { key: 'skuName', label: 'SKU Name', _style: { width: '20%'} },
+  { key: 'backup', label: 'Backup Retention Days', _style: { width: '20%'}}
+];
 
 const Breadcrumbs = () => {
+
+  const { userID } = useContext(UserContext)
+  const [data, setData] = useState([]);
+  let apiUrl = 'http://localhost:7070/database/getdatabaseazure/' + userID
+
+  useEffect(() => {
+    fetch(apiUrl)
+    .then(response => response.json())
+      .then(fetchedData => {
+        // Gelen veriyi düz bir yapıya dönüştür
+        const flattenedData = fetchedData.map(item => ({
+          location: item.location,
+          administratorLogin: item.properties.administratorLogin,
+          skuName: item.sku.name,
+          backup: item.properties.backup.backupRetentionDays
+        }));
+        setData(flattenedData);
+      })
+      .catch(error => console.error('Error:', error));
+
+  }, []);
+
   return (
-    <CRow>
-      <CCol xs={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>React Breadcrumb</strong>
-          </CCardHeader>
-          <CCardBody>
-            <p className="text-medium-emphasis small">
-              The breadcrumb navigation provides links back to each previous page the user navigated
-              through and shows the current location in a website or an application. You don’t have
-              to add separators, because they automatically added in CSS through{' '}
-              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::before">
-                {" "}
-                <code>::before</code>
-              </a>{' '}
-              and{' '}
-              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/content">
-                {' '}
-                <code>content</code>
-              </a>
-              .
-            </p>
-            {/* <DocsExample href="components/breadcrumb">
-              <CBreadcrumb>
-                <CBreadcrumbItem>
-                  <CLink href="#">Home</CLink>
-                </CBreadcrumbItem>
-                <CBreadcrumbItem active>Library</CBreadcrumbItem>
-              </CBreadcrumb>
-              <CBreadcrumb>
-                <CBreadcrumbItem>
-                  <CLink href="#">Home</CLink>
-                </CBreadcrumbItem>
-                <CBreadcrumbItem>
-                  <CLink href="#">Library</CLink>
-                </CBreadcrumbItem>
-                <CBreadcrumbItem active>Data</CBreadcrumbItem>
-              </CBreadcrumb>
-              <CBreadcrumb>
-                <CBreadcrumbItem>
-                  <CLink href="#">Home</CLink>
-                </CBreadcrumbItem>
-                <CBreadcrumbItem>
-                  <CLink href="#">Library</CLink>
-                </CBreadcrumbItem>
-                <CBreadcrumbItem>
-                  <CLink href="#">Data</CLink>
-                </CBreadcrumbItem>
-                <CBreadcrumbItem active>Bootstrap</CBreadcrumbItem>
-              </CBreadcrumb>
-            </DocsExample> */}
-          </CCardBody>
-        </CCard>
-      </CCol>
-    </CRow>
-  );
-};
+    <CTable
+      items={data}
+      fields={fields}
+      striped
+      itemsPerPage={5}
+      pagination
+      hover
+      sorter
+      className='styled-table'
+    >
+      <CTableHead>
+        <CTableRow>
+          <CTableHeaderCell scope="col">Location</CTableHeaderCell>
+          <CTableHeaderCell scope="col">Administrator</CTableHeaderCell>
+          <CTableHeaderCell scope="col">SKU Name</CTableHeaderCell>
+          <CTableHeaderCell scope="col">Backup Retention Days</CTableHeaderCell>
+        </CTableRow>
+      </CTableHead>
+    </CTable>
+  )
+}
 
 export default Breadcrumbs
