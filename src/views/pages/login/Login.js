@@ -123,7 +123,6 @@ const Login = () => {
                             </CButton>
                           </CModalFooter>
                         </CModal>
-
                       </CCol>
                       <CCol xs={6} className="text-right">
                         <CButton color="link" className="px-0">

@@ -5,56 +5,76 @@ import {
   CCardBody,
   CCardHeader,
   CCol,
-  CDropdown,
-  CDropdownDivider,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
-  CFormCheck,
   CFormInput,
-  CFormLabel,
-  CFormSelect,
-  CFormTextarea,
   CInputGroup,
-  CInputGroupText,
   CRow,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter,
 } from '@coreui/react'
 import { DocsExample } from 'src/components'
 import axios from 'axios';
 import { useEffect } from 'react';
 import UserContext from 'src/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const paginations = () => {
-const [inputValue, setInputValue] = useState('');
+const [imageId, setImageId] = useState('');
+const [visible, setVisible] = useState(false);
 const { userID } = useContext(UserContext)
-
+let navigate = useNavigate();
 
 
 const handleCreate = async () => {
-  await axios.post('http://localhost:7070/vm/createaws/5', { data: inputValue })
-    .then(response => {
-      console.log(response.data); // Yanıt verilerini konsola logla.
-      return response.data; // İkinci then bloğuna response.data'yı döndür.
+  const formData = {
+   imageId,
+  };
+
+
+  await fetch(`http://localhost:7070/vm/createaws/${userID}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response =>
+    {
+      if(response.ok) {  // HTTP status kodu 200-299 arasında ise
+        setVisible(!visible)
+        return response.json(); // json veriyi döndür ve sonraki then bloğuna geç.
+      } else {
+        alert("Wrong")
+      }
     })
-    .catch(error => {
-      console.error(error);
-    });
+  .then(data => {
+    // Handle response data
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 };
+const handleModal = () => {
+  setVisible(false);
+  navigate('/base/carousels')
+}
 
 
-
-const handleDelete = () => {
-  // Delete işlevi
-  axios.delete('API_URL', { data: inputValue })
-    .then(response => {
-      // İstek başarılı olduğunda yapılacaklar
-      console.log(response);
-    })
-    .catch(error => {
-      // İstek hata verdiğinde yapılacaklar
-      console.error(error);
-    });
-};
+// const handleDelete = () => {
+//   // Delete işlevi
+//   axios.delete('API_URL', { data: inputValue })
+//     .then(response => {
+//       // İstek başarılı olduğunda yapılacaklar
+//       console.log(response);
+//     })
+//     .catch(error => {
+//       // İstek hata verdiğinde yapılacaklar
+//       console.error(error);
+//     });
+// };
 
 useEffect(() => {
   console.log(userID)
@@ -74,28 +94,22 @@ useEffect(() => {
                   placeholder="Image ID"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
+                  value={imageId}
+                  onChange={(e) => setImageId(e.target.value)}
                 />
               </CInputGroup>
               <CButton onClick={handleCreate}>Create</CButton>
-            </DocsExample>
-          </CCardBody>
-        </CCard>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>Delete Virtual Machine</strong>
-          </CCardHeader>
-          <CCardBody>
-            <DocsExample href="forms/input-group">
-              <CInputGroup className="mb-3">
-                <CFormInput
-                  placeholder="Image ID"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                />
-              </CInputGroup>
-              <CButton>Delete</CButton>
+              <CModal visible={visible} onClose={() => setVisible(false)}>
+                          <CModalHeader onClose={() => setVisible(false)}>
+                            <CModalTitle>Success</CModalTitle>
+                          </CModalHeader>
+                          <CModalBody>Account Successfully Created !</CModalBody>
+                          <CModalFooter>
+                            <CButton color="secondary" onClick={handleModal}>
+                              Go VM List
+                            </CButton>
+                          </CModalFooter>
+                  </CModal>
             </DocsExample>
           </CCardBody>
         </CCard>

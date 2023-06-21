@@ -47,11 +47,6 @@ const _nav = [
         name: 'Azure Virtual Machines',
         to: '/base/breadcrumbs',
       },
-      {
-        component: CNavItem,
-        name: 'EKS Clusters',
-        to: '/base/list-groups',
-      },
     ],
   },
   {
@@ -136,7 +131,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'AWS Storage',
-        to: '/base/paginations',
+        to: '/widgets/',
       },
     ],
   },

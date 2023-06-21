@@ -64,7 +64,10 @@ const CreateAzureVM = () => {
     });
 
   };
-
+  const handleModal = () => {
+    setVisible(false);
+    navigate('/base/breadcrumbs')
+  }
   return (
     <CRow>
       <CCol xs={12}>
@@ -130,8 +133,8 @@ const CreateAzureVM = () => {
                           </CModalHeader>
                           <CModalBody>VM Successfully Created !</CModalBody>
                           <CModalFooter>
-                            <CButton color="secondary" onClick={() => setVisible(false)}>
-                              Close
+                            <CButton color="secondary" onClick={handleModal}>
+                              Go Azure VM List
                             </CButton>
                           </CModalFooter>
               </CModal>

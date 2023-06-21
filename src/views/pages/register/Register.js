@@ -49,6 +49,7 @@ const Register = () => {
           setVisible(!visible)
           return response.json(); // json veriyi döndür ve sonraki then bloğuna geç.
         } else {
+          alert("Wrong")
         }
       })
     .then(data => {

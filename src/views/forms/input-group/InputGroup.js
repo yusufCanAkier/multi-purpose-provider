@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   CButton,
@@ -6,35 +6,113 @@ import {
   CCardBody,
   CCardHeader,
   CCol,
+  CRow,
   CFormInput,
   CInputGroup,
-  CRow,
   CFormSelect,
   CInputGroupText,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalTitle,
+  CModalHeader,
+  CTable,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+  CTableDataCell
 } from '@coreui/react';
 import { DocsExample } from 'src/components';
+import UserContext from 'src/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const CreateEKS = () => {
   const [clusterName, setClusterName] = useState('');
-  const [selectedVersion, setSelectedVersion] = useState('');
-
+  const [clusterVersion, setSelectedVersion] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [clusters, setClusters] = useState([]);
+  const [delModal, setDelModal] = useState(false);
+  const [deleteClusterName, setDeleteClusterName] = useState(''); // Delete işlemi için seçilen clusterName'i tutar
+  const { userID } = useContext(UserContext);
+  let navigate = useNavigate();
+  
   const handleCreate = () => {
     const data = {
       clusterName,
-      selectedVersion,
+      clusterVersion,
     };
-    console.log(data)
     // Create işlevi
-    axios.post('http://localhost:7070/k8s/createeks/4', data)
+    axios.post('http://localhost:7070/k8s/createeks/' + userID, data)
       .then(response => {
-        // İstek başarılı olduğunda yapılacaklar
-        console.log(response.data, response);
+        if (response.status === 200) {
+          setVisible(!visible);
+          return response.json();
+        } else {
+          console.log("olmadi");
+        }
+      })
+      .then(data => {
+        console.log(data);
       })
       .catch(error => {
-        // İstek hata verdiğinde yapılacaklar
         console.error(error);
       });
   };
+  
+  const handleModal = () => {
+    setVisible(false);
+    navigate('/base/list-groups');
+  };
+
+  const handleDelete = () => {
+    // Delete işlevi
+    const formData = {
+      clusterName: deleteClusterName,
+    };
+    console.log(formData);
+    // Delete isteği burada gerçekleştirilir
+    fetch(`http://localhost:7070/k8s/deleteeks/${userID}`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(response => {
+        if (response.status === 200) {
+          // İstek başarılı olduysa işlem yapabilirsiniz
+          setDelModal(false)
+          console.log(response)
+        } else {
+          console.log("olmadi");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    fetch('http://localhost:7070/k8s/geteks/' + userID)
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch clusters');
+        }
+      })
+      .then(data => {
+        if (data.clusters && Array.isArray(data.clusters)) {
+          setDelModal(false)
+          setClusters(data.clusters);
+        } else {
+          throw new Error('Invalid cluster data');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [userID]);
 
   return (
     <CRow>
@@ -56,7 +134,7 @@ const CreateEKS = () => {
               <CInputGroup className="mb-3">
                 <CFormSelect
                   id="inputGroupSelect02"
-                  value={selectedVersion}
+                  value={clusterVersion}
                   onChange={(e) => setSelectedVersion(e.target.value)}
                 >
                   <option>Choose your cluster version</option>
@@ -72,7 +150,64 @@ const CreateEKS = () => {
                 </CInputGroupText>
               </CInputGroup>
               <CButton onClick={handleCreate}>Create</CButton>
+              <CModal visible={visible} onClose={() => setVisible(false)}>
+                <CModalHeader onClose={() => setVisible(false)}>
+                  <CModalTitle>Successfully</CModalTitle>
+                </CModalHeader>
+                <CModalBody>Database Successfully Created!</CModalBody>
+                <CModalFooter>
+                  <CButton color='secondary' onClick={handleModal}>
+                    Go AWS Database List
+                  </CButton>
+                </CModalFooter>
+              </CModal>
             </DocsExample>
+          </CCardBody>
+        </CCard>
+      </CCol>
+      <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>Clusters</strong>
+          </CCardHeader>
+          <CCardBody>
+            <CTable>
+              <CTableHead>
+                <CTableRow>
+                  <CTableHeaderCell>Cluster Name</CTableHeaderCell>
+                  <CTableHeaderCell className="text-end">Action</CTableHeaderCell>
+                </CTableRow>
+              </CTableHead>
+              <tbody>
+                {clusters.map((cluster, index) => (
+                  <CTableRow key={index}>
+                    <CTableDataCell>{cluster}</CTableDataCell>
+                    <CTableDataCell className="text-end">
+                      <CButton color="danger" onClick={() => {
+                        setDeleteClusterName(cluster);
+                        setDelModal(true);
+                      }}>
+                        Delete
+                      </CButton>
+                    </CTableDataCell>
+                  </CTableRow>
+                ))}
+              </tbody>
+            </CTable>
+            <CModal visible={delModal} onClose={() => setDelModal(false)}>
+              <CModalHeader onClose={() => setDelModal(false)}>
+                <CModalTitle>Attention</CModalTitle>
+              </CModalHeader>
+              <CModalBody>Do you want to delete your database?</CModalBody>
+              <CModalFooter>
+                <CButton color='danger' onClick={handleDelete}>
+                  Delete
+                </CButton>
+                <CButton color='secondary' onClick={() => setDelModal(false)}>
+                  Cancel
+                </CButton>
+              </CModalFooter>
+            </CModal>
           </CCardBody>
         </CCard>
       </CCol>

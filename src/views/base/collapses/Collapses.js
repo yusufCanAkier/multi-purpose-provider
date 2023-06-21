@@ -5,14 +5,6 @@ import {
   CCard,
   CCardBody,
   CCardHeader,
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
-  CNav,
-  CNavItem,
-  CNavLink,
-  CTab,
   CTable,
   CTableHead,
   CTableHeaderCell,
@@ -24,19 +16,19 @@ import { DocsExample } from 'src/components'
 import UserContext from 'src/UserContext'
 import '../accordion/accordion-style.css'
 
-
 const fields = [
-  { key: 'location', label: 'Location', _style: { width: '20%'} },
-  { key: 'administratorLogin', label: 'Administrator Login', _style: { width: '20%'} },
-  { key: 'skuName', label: 'SKU Name', _style: { width: '20%'} },
-  { key: 'backup', label: 'Backup Retention Days', _style: { width: '20%'}}
+  { key: 'AvailabilityZone', label: 'Availability Zone', _style: { width: '20%'} },
+  { key: 'MasterUsername', label: 'Master Username', _style: { width: '20%'} },
+  { key: 'DBInstanceClass', label: 'Instance Class', _style: { width: '20%'} },
+  { key: 'BackupRetentionPeriod', label: 'Backup Retention Period', _style: { width: '20%'}},
+  { key: 'DBInstanceStatus', label: 'Database Status', _style: { width: '20%'}}
 ];
 
 const Collapses = () => {
 
   const { userID } = useContext(UserContext)
   const [data, setData] = useState([]);
-  let apiUrl = 'http://localhost:7070/database/getdatabaseazure/' + userID
+  let apiUrl = 'http://localhost:7070/database/getdatabaseaws/' + userID
 
   useEffect(() => {
     fetch(apiUrl)
@@ -44,10 +36,11 @@ const Collapses = () => {
       .then(fetchedData => {
         // Gelen veriyi düz bir yapıya dönüştür
         const flattenedData = fetchedData.map(item => ({
-          location: item.location,
-          administratorLogin: item.properties.administratorLogin,
-          skuName: item.sku.name,
-          backup: item.properties.backup.backupRetentionDays
+          AvailabilityZone: item.AvailabilityZone,
+          MasterUsername: item.MasterUsername,
+          DBInstanceClass: item.DBInstanceClass,
+          BackupRetentionPeriod: item.BackupRetentionPeriod,
+          DBInstanceStatus: item.DBInstanceStatus
         }));
         setData(flattenedData);
       })
@@ -68,12 +61,24 @@ const Collapses = () => {
     >
       <CTableHead>
         <CTableRow>
-          <CTableHeaderCell scope="col">Location</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Administrator</CTableHeaderCell>
-          <CTableHeaderCell scope="col">SKU Name</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Backup Retention Days</CTableHeaderCell>
+          {fields.map(field => (
+            <CTableHeaderCell key={field.key} scope="col" style={field._style}>
+              {field.label}
+            </CTableHeaderCell>
+          ))}
         </CTableRow>
       </CTableHead>
+      <CTableBody>
+        {data.map((item, index) => (
+          <CTableRow key={index}>
+            <CTableDataCell>{item.AvailabilityZone}</CTableDataCell>
+            <CTableDataCell>{item.MasterUsername}</CTableDataCell>
+            <CTableDataCell>{item.DBInstanceClass}</CTableDataCell>
+            <CTableDataCell>{item.BackupRetentionPeriod}</CTableDataCell>
+            <CTableDataCell>{item.DBInstanceStatus}</CTableDataCell>
+          </CTableRow>
+        ))}
+      </CTableBody>
     </CTable>
   )
 }
