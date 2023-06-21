@@ -53,7 +53,7 @@ const Login = () => {
     })
     .then(response => {
       if(response.ok) {  // HTTP status kodu 200-299 arasında ise
-        navigate('/dashboard')
+        navigate('/theme/colors')
         return response.json(); // json veriyi döndür ve sonraki then bloğuna geç.
       } else {
         setVisible(!visible)
@@ -108,7 +108,6 @@ const Login = () => {
                       />
                     </CInputGroup>
                     <CRow>
-                        {error && <p className="text-danger">{error}</p>}
                       <CCol xs={6}>
                         <CButton type="submit" color="primary">
                           Login

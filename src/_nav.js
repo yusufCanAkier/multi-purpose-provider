@@ -79,6 +79,16 @@ const _nav = [
   },
   {
     component: CNavTitle,
+    name: 'Credentials',
+  },
+  {
+    component: CNavItem,
+    name: 'Access Keys',
+    to: '/theme/typography',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
     name: 'Components',
   },
   {
